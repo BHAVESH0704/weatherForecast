@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🌤️ Animated Weather Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body style="background: url('{{ url_for('static', filename=bg_gif) }}') no-repeat center center fixed; background-size: cover;">
+
+    <div class="overlay">
+        <div class="container">
+            <h1>🌦️ Real-Time Weather Forecast</h1>
+
+            <form method="POST">
+                <input type="text" name="city" placeholder="Enter city name" required>
+                <button type="submit">Search</button>
+            </form>
+
+            {% if weather %}
+                {% if weather.error %}
+                    <p class="error">{{ weather.error }}</p>
+                {% else %}
+                    <div class="weather-card">
+                        <h2>{{ weather.city }}, {{ weather.country }}</h2>
+                        <p class="desc">{{ weather.desc }}</p>
+                        <img src="http://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="icon">
+                        <p>🌡️ Temperature: <b>{{ weather.temp }}°C</b></p>
+                        <p>💧 Humidity: <b>{{ weather.humidity }}%</b></p>
+                        <p>🌬️ Wind Speed: <b>{{ weather.wind }} m/s</b></p>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>
